@@ -47,6 +47,53 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
     }
     
+    func createFirework(xMovement xMovement: CGFloat, x: Int, y: Int) {
+        // 1) Create an SKNode that will act as the firework container, and place it at the X/Y position that was specified.
+        let node = SKNode()
+        node.position = CGPoint(x: x, y: y)
+        
+        // 2) Create a rocket sprite node, give it the name "firework" so we know that it's the important thing, then add it to the container node.
+        let firework = SKSpriteNode(imageNamed: "rocket")
+        firework.name = "firework"
+        node.addChild(firework)
+        
+        // 3) Give the firework sprite node one of three random colors: cyan, green, or red. Use switch statement
+        switch GKRandomSource.sharedRandom().nextIntWithUpperBound(3) {
+        case 0:
+            firework.color = UIColor.cyanColor()
+            firework.colorBlendFactor = 1
+            
+        case 1:
+            firework.color = UIColor.greenColor()
+            firework.colorBlendFactor = 1
+            
+        case 2:
+            firework.color = UIColor.redColor()
+            firework.colorBlendFactor = 1
+            
+        default:
+            break
+        }
+        
+        // 4) Create a UIBezierPath that will represent the movement of the firework.
+        let path = UIBezierPath()
+        path.moveToPoint(CGPoint(x: 0, y: 0))
+        path.addLineToPoint(CGPoint(x: xMovement, y: 1000))
+        
+        // 5) Tell the container node to follow that path, turning itself as needed.
+        let move = SKAction.followPath(path.CGPath, asOffset: true, orientToPath: true, speed: 200)
+        node.runAction(move)
+        
+        // 6) Create particles behind the rocket to make it look like the fireworks are lit.
+        let emitter = SKEmitterNode(fileNamed: "fuse")!
+        emitter.position = CGPoint(x: 0, y: -22)
+        node.addChild(emitter)
+        
+        // 7) Add the firework to our fireworks array and to the scene
+        fireworks.append(node)
+        addChild(node)
+    }
+    
     func launchFireworks() {
         
     }
