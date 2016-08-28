@@ -155,6 +155,38 @@ class GameScene: SKScene {
         firework.removeFromParent()
     }
     
+    func explodeFireworks() {
+        var numExploded = 0
+        
+        for (index, fireworkContainer) in fireworks.enumerate().reverse() {
+            let firework = fireworkContainer.children[0] as! SKSpriteNode
+            
+            if firework.name == "selected" {
+                // destroy this firework
+                explodeFirework(fireworkContainer)
+                fireworks.removeAtIndex(index)
+                
+                numExploded += 1
+            }
+        }
+        
+        switch numExploded {
+        case 0:
+            // nothing
+            break
+        case 1:
+            score += 200
+        case 2:
+            score += 500
+        case 3:
+            score += 1500
+        case 4:
+            score += 2500
+        default:
+            score += 4000
+        }
+    }
+    
     func checkForTouches(touches: Set<UITouch>) {
         guard let touch = touches.first else { return }
         
