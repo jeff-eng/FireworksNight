@@ -1,6 +1,6 @@
 //
 //  GameViewController.swift
-//  TestProject
+//  Project20b
 //
 //  Created by Jeffrey Eng on 8/26/16.
 //  Copyright (c) 2016 Jeffrey Eng. All rights reserved.
