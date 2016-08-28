@@ -147,6 +147,14 @@ class GameScene: SKScene {
         }
     }
     
+    func explodeFirework(firework: SKNode) {
+        let emitter = SKEmitterNode(fileNamed: "explode")!
+        emitter.position = firework.position
+        addChild(emitter)
+        
+        firework.removeFromParent()
+    }
+    
     func checkForTouches(touches: Set<UITouch>) {
         guard let touch = touches.first else { return }
         
@@ -172,4 +180,6 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    
 }
