@@ -18,9 +18,10 @@ class GameScene: SKScene {
     let bottomEdge = -22
     let rightEdge = 1024 + 22
     
+    var gameScore: SKLabelNode!
     var score: Int = 0 {
         didSet {
-            //put code here
+            gameScore.text = "Score: \(score)"
         }
     }
     
@@ -37,6 +38,8 @@ class GameScene: SKScene {
         addChild(background)
         
         gameTimer = NSTimer.scheduledTimerWithTimeInterval(6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
+        
+        createScore()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -57,6 +60,16 @@ class GameScene: SKScene {
                 firework.removeFromParent()
             }
         }
+    }
+    
+    func createScore() {
+        gameScore = SKLabelNode(fontNamed: "HelveticaNeue")
+        gameScore.text = "Score: 0"
+        gameScore.horizontalAlignmentMode = .Right
+        gameScore.fontSize = 48
+        gameScore.position = CGPoint(x: 1010, y: 20)
+        
+        addChild(gameScore)
     }
     
     func createFirework(xMovement xMovement: CGFloat, x: Int, y: Int) {
